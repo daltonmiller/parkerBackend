@@ -7,6 +7,7 @@ module.exports = {
     findBy,
     findById,
     remove,
+    trending
   };
   
   function edit(id, changes){
@@ -17,13 +18,16 @@ module.exports = {
 
 
   function find() {
-    return db("questions").select("*").orderBy("id");
+    return db("questions").select("*").orderBy('votes', 'desc');
   }
 
   
   function findBy(filter) {
     return db("questions").where(filter).orderBy("id");
   }
+ function trending(){
+     return db('questions').orderBy('votes', "desc").limit(5)
+ }
 
 function insert(property) {
     return db('questions')

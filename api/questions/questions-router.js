@@ -13,6 +13,15 @@ router.get('/', (req, res) => {
             res.status(500).json({ message: `failed to get Questions - ${err}` })
         })
 })
+router.get('/trending', (req, res) => {
+    Questions.trending()
+        .then(Questions => {
+            res.status(200).json(Questions);
+        })
+        .catch(err => {
+            res.status(500).json({ message: `failed to get Questions - ${err}` })
+        })
+})
 
 
 router.get('/:id', (req, res) => {
