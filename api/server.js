@@ -3,7 +3,7 @@ const helmet = require('helmet');
 const express = require('express');
 const db = require('../data/dbConfig');
 const questionRouter = require('./questions/questions-router')
-const voteRouter = require('./votes/votes-router')
+
 
 
 const server = express();
@@ -23,7 +23,7 @@ server.get('/', (req, res) => {
 
 
 server.use('/questions', questionRouter);
-server.use('/votes', voteRouter);
+
 
 
 
