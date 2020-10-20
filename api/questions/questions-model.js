@@ -18,7 +18,7 @@ module.exports = {
 
 
   function find() {
-    return db("questions").select("*").orderBy('votes', 'desc');
+    return db("questions").orderBy('votes', 'desc');
   }
 
   
