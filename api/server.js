@@ -13,7 +13,7 @@ server.use(cors());
 server.use(express.json());
 
 server.get('/', (req, res) => {
-    db('users').select('*')
+    db('questions').select('*')
       
             .then(data => {
                 res.status(200).json(data);
