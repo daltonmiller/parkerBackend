@@ -42,3 +42,8 @@ function insert(property) {
   function remove(id){
     return db("questions").where({ id }).del();
   }
+  function edit(id, changes){
+      return db('questions')
+      .where({id: id})
+      .update(changes)
+  }

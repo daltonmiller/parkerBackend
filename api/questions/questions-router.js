@@ -84,5 +84,20 @@ router.delete('/:id', (req, res) => {
             res.status(500).json({ message: `unable to delete item - ${err}` })
           })
 })
+router.put('/:id', (req, res) => {
+    Questions.edit(req.params.id, req.body)
+        .then(count => {
+            if(count){
+                res.status(200).json({ message: 'update successful', data: req.body })
+            } else {
+                res.status(404).json({ message: ' Id not found.'})
+            }
+        })
+        .catch(error => {
+            console.log(error)
+            res.status(500).json({ error:error.message })
+        })
+})
+
 
 module.exports = router;
