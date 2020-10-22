@@ -2,7 +2,6 @@ const cors = require('cors');
 const helmet = require('helmet');
 const express = require('express');
 const db = require('../data/dbConfig');
-const questionRouter = require('./questions/questions-router')
 const askedQuestionsRouter = require('./askedQuestions/askedQuestions-router')
 
 
@@ -13,8 +12,8 @@ server.use(helmet());
 server.use(cors());
 server.use(express.json());
 
-server.get('/questions', (req, res) => {
-    db('questions').select('*')
+server.get('/', (req, res) => {
+    db('submissions').select('*')
       
             .then(data => {
                 res.status(200).json(data);
@@ -22,7 +21,7 @@ server.get('/questions', (req, res) => {
             .catch(err => res.send(err));
 })
 
-server.use('/', questionRouter);
+server.use('/asked', askedQuestionsRouter);
 
 
 

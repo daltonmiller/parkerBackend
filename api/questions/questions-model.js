@@ -47,3 +47,18 @@ function insert(property) {
       .where({id: id})
       .update(changes)
   }
+
+//   async function add(item) {
+//     try {
+//       const [id] = await db("questions").insert(item, "id");
+//       return findById(id);
+//     } catch (error) {
+//       throw error;
+//     }
+//   }
+
+function insert(property) {
+    return db('questions')
+      .insert(property, 'id')
+      .then(([id]) => find(id));
+  }

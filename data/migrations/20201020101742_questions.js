@@ -15,6 +15,10 @@ exports.up = function(knex) {
         //   .onUpdate('CASCADE')
         //   .onDelete('CASCADE')
       })
+      .createTable('submissions', tbl => {
+          tbl.increments()
+          tbl.string('askedQuestions', 255).notNullable()
+      })
     //   .createTable('votes', tbl => {
     //       tbl.increments()
     //       tbl.float('vote').notNullable()
@@ -26,6 +30,7 @@ exports.down = function(knex) {
   return (
       knex.schema
     //   .dropTableIfExists('votes')
+      .dropTableIfExists('submissions')
       .dropTableIfExists('questions')
       
       

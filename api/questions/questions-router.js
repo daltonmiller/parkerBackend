@@ -13,15 +13,7 @@ router.get('/', (req, res) => {
             res.status(500).json({ message: `failed to get Questions - ${err}` })
         })
 })
-router.get('/trending', (req, res) => {
-    Questions.trending()
-        .then(Questions => {
-            res.status(200).json(Questions);
-        })
-        .catch(err => {
-            res.status(500).json({ message: `failed to get Questions - ${err}` })
-        })
-})
+
 
 
 router.get('/:id', (req, res) => {
@@ -37,27 +29,7 @@ router.get('/:id', (req, res) => {
 
 
 
-router.post('/', (req, res) => {
-    const addNew = req.body;
-    axios.post('https://infinite-sierra-21028.herokuapp.com/predict', addNew)
-        .then(resData => {
-            console.log(resData.data)
-            console.log(addNew)
-            addNew.prediction = resData.data.prediction
-            Questions.insert(addNew)
-            .then(resDatabase => {
-                res.status(201).json(resDatabase)
-            }).catch(err => {
-                    console.log(err)
-                    res.status(500).json({ err: err.message })
 
-
-                
-            })
-        }).catch(err => {
-            res.status(500).json({ err: err.message })
-        })
-    })
 
 
 router.put('/:id', (req, res) => {
@@ -85,6 +57,7 @@ router.delete('/:id', (req, res) => {
           })
 })
 router.put('/:id', (req, res) => {
+    console.log(req)
     Questions.edit(req.params.id, req.body)
         .then(count => {
             if(count){
@@ -97,6 +70,22 @@ router.put('/:id', (req, res) => {
             console.log(error)
             res.status(500).json({ error:error.message })
         })
+})
+
+
+router.post("/", (req, res) => {
+    const propertyData = req.body
+    // const id = req.body.id
+    console.log(req.data)
+    db("questions")
+    .insert(propertyData)
+    .returning("id")
+    .then(ids => {
+        res.status(200).json({data: ids})
+    })
+    .catch(error => {
+        res.status(500).json({message: error.message})
+    })
 })
 
 
