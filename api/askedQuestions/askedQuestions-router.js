@@ -3,7 +3,7 @@ const db = require("../../data/dbConfig")
 const Questions = require('./askedQuestions-model')
 const axios = require('axios')
 
-router.get('/', (req, res) => {
+router.get('/asked', (req, res) => {
     Questions.find()
         .then(Questions => {
             res.status(200).json(Questions);
@@ -13,7 +13,7 @@ router.get('/', (req, res) => {
         })
 })
 
-router.post("/", (req, res) => {
+router.post("/asked", (req, res) => {
     const questionData = req.body
     // const id = req.body.id
     console.log(req.data)
